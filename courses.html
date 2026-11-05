@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Catalog - SkillHub Academy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <!-- Brand Logo -->
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🎓</span> 
+      <span class="logo-text">Skill<span class="logo-highlight">Hub</span></span>
+    </a>
+
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <a href="dashboard.html" style="color: #007bff; text-decoration: none; font-weight: bold;">📊 Dashboard</a>
+      <a href="profile.html" style="color: #007bff; text-decoration: none; font-weight: bold;">👤 Profile</a>
+      <a href="admin.html" style="background: #28a745; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: bold;">+ Add Course</a>
+      
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search courses..." onkeyup="searchCourses()">
+      </div>
+      
+      <a href="login.html" onclick="localStorage.clear();" style="color: #dc3545; text-decoration: none; font-weight: bold;">🚪 Logout</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Learn New Skills Online</h1>
+    <p>Choose your course and start learning today!</p>
+  </section>
+
+  <!-- Course Cards Grid -->
+  <main class="courses-container">
+    <h2>Available Courses</h2>
+    
+    <div class="course-grid" id="course-grid">
+
+      <!-- Course 1 -->
+      <div class="course-card">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500" alt="Web Dev">
+        <div class="card-body">
+          <span class="badge">Development</span>
+          <h3>Full-Stack Web Development</h3>
+          <p>Learn HTML, CSS, JavaScript, and Node.js with real-world projects.</p>
+          <div class="card-footer">
+            <span class="price">Free</span>
+            <a href="index.html" class="enroll-btn">Start Course</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Course 2 -->
+      <div class="course-card">
+        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500" alt="Python">
+        <div class="card-body">
+          <span class="badge">Programming</span>
+          <h3>Python for Beginners</h3>
+          <p>Master Python fundamentals, data structures, and algorithms.</p>
+          <div class="card-footer">
+            <span class="price">$19.99</span>
+            <a href="login.html" class="enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Course 3 -->
+      <div class="course-card">
+        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500" alt="Graphic Design">
+        <div class="card-body">
+          <span class="badge">Design</span>
+          <h3>UI/UX & Graphic Design</h3>
+          <p>Design modern user interfaces and master graphic design tools.</p>
+          <div class="card-footer">
+            <span class="price">$14.99</span>
+            <a href="login.html" class="enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

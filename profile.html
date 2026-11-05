@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile - My Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #f4f7fe;
+      color: #2b3674;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .profile-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .profile-pic-container {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px auto;
+    }
+    .profile-pic {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #007bff;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #2b3674;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #dce0e5;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .save-btn {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .save-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <h2>My Academy</h2>
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <a href="dashboard.html" style="color: #007bff; text-decoration: none; font-weight: bold;">📊 Dashboard</a>
+      <a href="quiz.html" style="color: #ffc107; text-decoration: none; font-weight: bold;">📝 Take Quiz</a>
+      <a href="courses.html" style="color: #007bff; text-decoration: none; font-weight: bold;">← Back to Courses</a>
+      <a href="#" onclick="handleLogout(event)" style="color: #dc3545; text-decoration: none; font-weight: bold;">🚪 Logout</a>
+    </div>
+  </header>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-pic-container">
+        <img id="profile-img-preview" src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-pic">
+      </div>
+      <h2>Student Profile</h2>
+      <p style="color: #707eae; margin: 0;">Update your personal details here</p>
+    </div>
+
+    <form id="profile-form" onsubmit="saveProfile(event)">
+      <div class="form-group">
+        <label for="profile-file">Select Profile Image</label>
+        <input type="file" id="profile-file" accept="image/*" onchange="previewImage(event)">
+      </div>
+
+      <div class="form-group">
+        <label for="student-name">Full Name</label>
+        <input type="text" id="student-name" required placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="student-email">Email Address</label>
+        <input type="email" id="student-email" required placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="student-password">New Password (optional)</label>
+        <input type="password" id="student-password" placeholder="Leave blank to keep current">
+      </div>
+
+      <button type="submit" class="save-btn">Save Changes</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    let uploadedImageBase64 = '';
+
+    // Load saved details on page render
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedName = localStorage.getItem('studentName') || 'Student';
+      const savedEmail = localStorage.getItem('studentEmail') || 'student@academy.com';
+      const savedPic = localStorage.getItem('studentPic') || 'https://via.placeholder.com/120';
+
+      document.getElementById('student-name').value = savedName;
+      document.getElementById('student-email').value = savedEmail;
+      document.getElementById('profile-img-preview').src = savedPic;
+      uploadedImageBase64 = savedPic;
+    });
+
+    // Preview selected image and compress if necessary
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        // Limit file size to avoid LocalStorage QuotaExceededError (max 2MB preview)
+        if (file.size > 2 * 1024 * 1024) {
+          alert("Selected image is too large. Please choose an image smaller than 2MB.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImageBase64 = e.target.result;
+          document.getElementById('profile-img-preview').src = uploadedImageBase64;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Save profile details securely to LocalStorage
+    function saveProfile(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('student-name').value.trim();
+      const email = document.getElementById('student-email').value.trim();
+      const password = document.getElementById('student-password').value.trim();
+
+      try {
+        localStorage.setItem('studentName', name);
+        localStorage.setItem('studentEmail', email);
+
+        if (password) {
+          localStorage.setItem('studentPassword', password);
+        }
+
+        if (uploadedImageBase64) {
+          localStorage.setItem('studentPic', uploadedImageBase64);
+        }
+
+        alert("Profile updated successfully!");
+      } catch (e) {
+        alert("Failed to save changes. Image size might be too large for local storage.");
+      }
+    }
+  </script>
+</body>
+</html>
+<script>
+    // Global Utility Functions for My Academy
+    document.addEventListener('DOMContentLoaded', () => {
+      updateNavbarProfile();
+    });
+
+    function updateNavbarProfile() {
+      const savedName = localStorage.getItem('studentName');
+      const userGreeting = document.getElementById('user-greeting');
+      
+      if (userGreeting && savedName) {
+        userGreeting.textContent = `Hello, ${savedName}`;
+      }
+    }
+
+    function handleLogout(event) {
+      if (event) event.preventDefault();
+      
+      if (confirm("Are you sure you want to log out?")) {
+        localStorage.clear();
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html>

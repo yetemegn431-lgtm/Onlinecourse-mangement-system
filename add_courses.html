@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Course - My Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: #1f1f1f;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background-color: #2b2b2b;
+      color: white;
+      outline: none;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <h2>My Academy</h2>
+    <a href="courses.html" style="color: #007bff; text-decoration: none; font-weight: bold;">← Back to Courses</a>
+  </header>
+
+  <div class="form-container">
+    <h2>Add New Course</h2>
+    <form onsubmit="addNewCourse(event)">
+      <div class="form-group">
+        <label>Course Title</label>
+        <input type="text" id="course-title" required placeholder="e.g. Master React JS">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select id="course-category">
+          <option value="Development">Development</option>
+          <option value="Programming">Programming</option>
+          <option value="Design">Design</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="course-desc" rows="3" required placeholder="Enter course description..."></textarea>
+      </div>
+
+      <div class="form-group">
+  <label>Video File Name / URL</label>
+  <input type="text" id="course-video" required placeholder="e.g. lesson1.mp4 or https://...">
+</div>
+
+     <div class="form-group">
+  <label>PDF File Name / URL</label>
+  <input type="text" id="course-pdf" required placeholder="e.g. lesson1.pdf or https://...">
+</div> 
+
+      <button type="submit" class="submit-btn">Publish Course</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
